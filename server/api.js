@@ -30,26 +30,24 @@ router.get('/estimates/price', function(req, res){
   });
 });
 
-// router.get('/estimates/price', function (req, res) {
-//   var source = JSON.parse(req.query.source);
-//   var destination = JSON.parse(req.query.destination);
+router.get('/estimates/time', function(req, res){
+  var start_latitude = 21.308507;
+  var start_longitude = -157.818326;
 
-//   // create an http request to uber api
-//   request.get({
-//     url : uberApiUrl + '/estimates/price',
-//     qs : {
-//       server_token : uberServerToken,
-//       start_latitude : source.lat,
-//       start_longitude : source.lng,
-//       end_latitude : destination.lat,
-//       end_longitude : destination.lng
-//     }
-//   }, function(err, response, body) {
-//     if(err) {
-//       return res.json(err);
-//     }
-//     res.json(body);
-//   });
-// });
+  request.get({
+    url : uberApiUrl + '/estimates/time',
+    qs : {
+      server_token : uberServerToken,
+      start_latitude : start_latitude,
+      start_longitude : start_longitude
+    }
+  }, function(err, response, body) {
+    if(err) {
+      return res.json(err);
+    }
+    var results = JSON.parse(body);
+    res.json(results);
+  });
+});
 
 module.exports = router;
