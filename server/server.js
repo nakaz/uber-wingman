@@ -1,10 +1,48 @@
-var express = require('express');
-var app     = express();
+var express    = require('express'),
+    app        = express(),
+    router     = express.Router();
 
-app.get('/', function(req, res){
-  res.send('hello world');
+var api        = require('./api');
+
+var bodyParser = require('body-parser');
+
+var config     = require('../config/config.json'),
+    PORT       = config.port;
+
+var mongoose   = require('mongoose'),
+    dbUberWing = 'uberwm_mongodb',
+    car        = require('./controllers/mongo/car');
+
+app.use(express.static(__dirname + '/../app'));
+app.use(bodyParser.urlencoded({extended: false}));
+app.use('/api', api);
+
+router.get('/', function(req, res){
+  res.send("hello world");
 });
 
-app.listen(process.env.PORT || 8080, function(){
-  console.log('Server is listening on port', process.env.PORT || 8080);
-});
+// Get all cars
+router.get('/api/products/cars', car.getAll);
+
+// Get one car, update one car, delete one car
+router.route('/api/products/car/:id')
+  .get(car.read)
+  .put(car.update)
+  .delete(car.delete);
+
+// Register the routing
+app.use('/', router);
+
+mongoose.connect("mongodb://localhost/" + dbUberWing);
+
+var db = mongoose.connection;
+db.on('error', console.error);
+db.once('open', startServer);
+
+function startServer(){
+  var server = app.listen(PORT, function(){
+    var HOST = server.address().address;
+
+    console.log('Server listening at http://%s%s', HOST, PORT);
+  });
+}
