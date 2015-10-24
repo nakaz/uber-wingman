@@ -3,6 +3,9 @@ var express    = require('express'),
     router     = express.Router();
 
 var api        = require('./api');
+var redis      = require('redis'),
+    session    = require('express-session'),
+    RedisStore = require('connect-redis')(session);
 
 var bodyParser = require('body-parser');
 
@@ -13,9 +16,35 @@ var mongoose   = require('mongoose'),
     dbUberWing = 'uberwm_mongodb',
     car        = require('./controllers/mongo/car');
 
+var client     = redis.createClient(); // create redis client
+
 app.use(express.static(__dirname + '/../app'));
 app.use(bodyParser.urlencoded({extended: false}));
+
 app.use('/api', api);
+
+app.use(session({
+  store: new RedisStore(),
+  secret: config.sessionSecret,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 10000
+  }
+}));
+
+app.use(function (req, res, next) {
+  var session = req.session;
+
+  if (session.views) {
+    session.views++;
+  } else {
+    session.views = 1;
+  }
+
+  console.log('viewed ', session.views, ' times!');
+  next();
+});
 
 router.get('/', function(req, res){
   res.send("hello world");
