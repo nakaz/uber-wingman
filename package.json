@@ -19,8 +19,11 @@
   "homepage": "https://github.com/senakamura/uber-wingman#readme",
   "dependencies": {
     "body-parser": "^1.14.1",
+    "connect-redis": "^3.0.1",
     "express": "^4.13.3",
+    "express-session": "^1.11.3",
     "mongoose": "^4.2.2",
+    "redis": "^2.2.5",
     "request": "^2.65.0"
   }
 }
