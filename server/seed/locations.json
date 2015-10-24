@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Toyota",
+    "category": "SUV",
+    "primary_image": "http://www.aboutcoolcars.com/wp-content/gallery/2016-toyota-sequoia-1/2016-toyota-sequoia-news-1.jpg"
+  },
+  {
+    "name": "Chevrolet",
+    "category": "SUV",
+    "primary_image": "https://file.kbb.com/kbb/images/content/editorial/slideshow/2014-chevy-traverse/2014-chevy-traverse-35-320-600-001.jpg"
+  }
+]
