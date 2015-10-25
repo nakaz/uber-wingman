@@ -7,8 +7,7 @@
         var queryOptions = {
           location: location,
           radius: 16093.4, //equivalent of 10 miles
-          types: ['bar', 'night_club'],
-          key: process.env.GOOGLE_SERVER_TOKEN
+          types: ['bar', 'night_club']
         };
 
         var Venues = $resource(BASE_URL + '/api/venues', queryOptions);

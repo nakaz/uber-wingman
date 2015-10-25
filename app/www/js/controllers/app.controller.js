@@ -1,15 +1,21 @@
 (function (){
+
   angular.module('wingman')
     .controller('mainController', [
         '$rootScope',
         '$scope',
+        'BASE_URL',
         'geolocation',
         'googleServices',
         'uiGmapGoogleMapApi',
          mainController
       ]);
 
-  function mainController ($rootScope, $scope, geolocation, googleServices, googleMaps) {
+  function mainController ($rootScope, $scope, BASE_URL, geolocation, googleServices, googleMaps) {
+    $scope.uberLogin = function (){
+      window.location.href = BASE_URL + '/login';
+    };
+
     $rootScope.userLocation
       .then(function(position){
         $scope.position = position;

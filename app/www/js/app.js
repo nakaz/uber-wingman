@@ -37,6 +37,14 @@
             templateUrl: 'templates/main.html'
           }
         }
+      })
+      .state('app.login', {
+        url: '/login',
+        views: {
+          "menuContent": {
+            templateUrl: 'templates/login.html'
+          }
+        }
       });
 
     $urlRouterProvider.otherwise('/app/main');
