@@ -96,8 +96,11 @@ router.get('/oauth/cb', function(req, res){
       } else {
         // got token, send back to client
         // POPUP Blocker must be disabled, or find workaround, or use redirect instead
-        console.log(access_token);
-        res.send(serverUrl+'#store-auth-token/'+access_token);
+        // console.log('access token: ' + access_token);
+        // console.log('refresh token: ' + refresh_token);
+        console.log(results);
+
+        res.send(results);
       }
     });
 
