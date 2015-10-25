@@ -58,6 +58,11 @@ router.route('/api/products/car/:id')
   .put(car.update)
   .delete(car.delete);
 
+router.route('/store-auth-token/:accessToken')
+  .get(function (req, res) {
+    res.send(req.params.accessToken);
+  });
+
 // Register the routing
 app.use('/', router);
 
