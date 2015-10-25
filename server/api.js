@@ -7,6 +7,8 @@ var uberApiUrl       = 'https://api.uber.com/v1',
     uberServerToken  = process.env.UBER_SERVER_TOKEN,
     bearerToken      = null;
 
+var googleServerToken = process.env.GOOGLE_SERVER_TOKEN;
+
 router.get('/estimates/price', function(req, res){
   var start_latitude = 21.308507;
   var start_longitude = -157.818326;
