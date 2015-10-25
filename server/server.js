@@ -22,7 +22,7 @@ var uberServerToken = process.env.UBER_SERVER_TOKEN;
 var uberClientID = process.env.UBER_CLIENT_ID;
 var uberClientSecret = process.env.UBER_CLIENT_SECRET;
 
-app.use(express.static(__dirname + '/../app'));
+app.use(express.static(__dirname + '/../app/www'));
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.use(function(req, res, next) {
