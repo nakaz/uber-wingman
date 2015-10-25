@@ -34,7 +34,9 @@
       }
     };
 
+    $scope.accessToken = localStorage.getItem("auth_token");
 
+    console.log($scope.accessToken);
 
     $rootScope.userLocation
       .then(function(position){
@@ -61,6 +63,13 @@
                   selectedMarker = arguments[2];
                   $scope.name = selectedMarker.options.label;
                   console.log(selectedMarker);
+                };
+
+                $scope.onMe = function (accessToken) {
+                  console.log(accessToken);
+                  uberServices
+                    .getMe(accessToken);
+
                 };
 
                 //when click request ride button, use uberServices.requestUberData(selectedMarker) to with selectedMarker values
