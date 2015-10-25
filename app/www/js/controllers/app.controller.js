@@ -4,11 +4,12 @@
         '$rootScope',
         '$scope',
         'geolocation',
+        'googleServices',
         'uiGmapGoogleMapApi',
          mainController
       ]);
 
-  function mainController ($rootScope, $scope, geolocation, googleMaps) {
+  function mainController ($rootScope, $scope, geolocation, googleServices, googleMaps) {
     $rootScope.userLocation
       .then(function(position){
         $scope.position = position;
@@ -21,6 +22,11 @@
           options: {disableDefaultUI: true},
           control: {}
         };
+        googleServices
+          .getVenues(position.coords.latitude, position.coords.longitude)
+          .then(function(venues) {
+            console.log(venues);
+          });
       })
       .catch(function(error){
         console.log(error);
