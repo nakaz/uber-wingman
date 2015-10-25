@@ -46,6 +46,13 @@ app.use(function (req, res, next) {
   next();
 });
 
+
+// Client Login
+
+router.get('/login', function (req, res){
+  res.redirect('www.google.com');
+});
+
 router.get('/', function(req, res){
   res.send("hello world");
 });
