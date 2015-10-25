@@ -57,7 +57,7 @@
                 var markersArr = MarkerService.markers;
 
                 $scope.onClick = function (){
-                  console.log('working');
+                  console.log(arguments[2]);
                 };
 
                 $scope.barMarkers = markersArr;
