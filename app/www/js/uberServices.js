@@ -1,7 +1,7 @@
 (function (){
   angular
     .module('wingman')
-    .service('uberServices', ['$resource', 'BASE_URL',  function ($resource, BASE_URL){
+    .service('uberServices', ['$resource', '$rootScope', 'BASE_URL',  function ($resource, $rootScope, BASE_URL){
       this.requestUberData = function (latitude, longitude, radius){
         var location = latitude + ',' + longitude;
         var queryOptions = {

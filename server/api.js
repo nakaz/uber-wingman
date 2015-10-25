@@ -99,8 +99,8 @@ router.get('/oauth/cb', function(req, res){
         // console.log('access token: ' + access_token);
         // console.log('refresh token: ' + refresh_token);
         console.log(results);
-
-        res.send(results);
+        // res.json(results);
+        res.redirect('/#/store-auth-token/' + access_token);
       }
     });
 

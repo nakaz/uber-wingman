@@ -22,7 +22,7 @@ var uberServerToken = process.env.UBER_SERVER_TOKEN;
 var uberClientID = process.env.UBER_CLIENT_ID;
 var uberClientSecret = process.env.UBER_CLIENT_SECRET;
 
-app.use(express.static(__dirname + '/../app'));
+app.use(express.static(__dirname + '/../app/www'));
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.use(function(req, res, next) {
@@ -57,6 +57,11 @@ router.route('/api/products/car/:id')
   .get(car.read)
   .put(car.update)
   .delete(car.delete);
+
+router.route('/store-auth-token/:accessToken')
+  .get(function (req, res) {
+    res.send(req.params.accessToken);
+  });
 
 // Register the routing
 app.use('/', router);
