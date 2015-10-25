@@ -62,7 +62,9 @@
                   $scope.name = selectedMarker.options.label;
                   console.log(selectedMarker);
                 };
-                //when click request ride button, use uberServices.requestUberData
+
+                //when click request ride button, use uberServices.requestUberData(selectedMarker) to with selectedMarker values
+
                 $scope.barMarkers = markersArr;
               });
 
