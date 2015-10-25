@@ -3,6 +3,7 @@
   var app = angular.module(
     'wingman',
     ['ionic',
+    'ngResource',
     'uiGmapgoogle-maps'
     ]);
 
