@@ -1,24 +1,13 @@
 (function (){
   angular
     .module('wingman')
-    .factory('geolocation', ['$q', '$window', '$rootScope', '$ionicPlatform', '$cordovaGeolocation', function($q, $window, $rootScope, $ionicPlatform, $cordovaGeolocation){
+    .factory('geolocation', ['$q', '$window', '$rootScope', '$ionicPlatform', function($q, $window, $rootScope, $ionicPlatform){
 
       return function(){
         var deferred = $q.defer();
 
         $ionicPlatform.ready(function (){
-          if(ionic.Platform.isIOS() || ionic.Platform.isAndroid()){
-            var posOptions = {timeout: 10000, enableHighAccuracy: false};
-
-            $rootScope = $cordovaGeolocation
-              .getCurrentPosition(posOptions)
-              .then(function (position){
-                deferred.resolve(position);
-              })
-              .catch(function (err){
-                deferred.reject(err);
-              });
-          } else if(!$window.navigator){
+          if(!$window.navigator){
             $rootScope.$apply(function(){
               deferred.reject(new Error("Geolocation not supported"));
             });
