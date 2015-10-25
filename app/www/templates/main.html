@@ -10,26 +10,26 @@
     <div class="content-area">
       <div id="venue">{{name}}</div>
     </div>
-  </ion-content>
         <div class="row">
           <div class="col">
             <div class="price">
               {{ price }}
               <div class="clear"></div>
-              <span class="side-text">Estimated Cost</span>
+              <span class="side-text">estimated cost</span>
             </div>
           </div>
           <div class="col">
             <div class="pick-me-up">
-              <button class="button button-assertive car-button icon ion-model-s"><span class="bottom-text">Pick Me Up!</span></button>
+              <button class="button button-assertive car-button icon ion-model-s" ng-click="requestUber()"><span class="bottom-text">Pick Me Up!</span></button>
             </div>
           </div>
           <div class="col">
             <div class="time">
               {{ time }}
               <div class="clear"></div>
-              <span class="side-text">Minutes</span>
+              <span class="side-text">seconds</span>
             </div>
           </div>
         </div>
+  </ion-content>
 </ion-view>
