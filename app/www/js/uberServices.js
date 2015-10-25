@@ -2,17 +2,7 @@
   angular
     .module('wingman')
     .service('uberServices',
-      ['$resource', '$rootScope', '$http', 'BASE_URL', 'UBER_API_ME', 'UBER_API_EP', 'UBER_API_TIME', function ($resource, $rootScope, $http, BASE_URL, UBER_API_ME, UBER_API_EP, UBER_API_TIME){
-      this.requestUberData = function (latitude, longitude, radius){
-        var location = latitude + ',' + longitude;
-        var queryOptions = {
-          //insert query paramaters
-        };
-
-        //send to server api route
-        var UberData = $resource(BASE_URL + '/api/venues', queryOptions);
-        return UberData.query().$promise;
-      };
+      ['$resource', '$rootScope', '$http', 'BASE_URL', 'UBER_API_ME', 'UBER_API_EP', 'UBER_API_TIME', 'UBER_API_RIDE', function ($resource, $rootScope, $http, BASE_URL, UBER_API_ME, UBER_API_EP, UBER_API_TIME, UBER_API_RIDE){
 
       this.getMe = function (accessToken){
         $http({
@@ -21,50 +11,84 @@
           headers: {
             'Authorization': 'Bearer ' + accessToken
           }
-        }).then(function (res){
-
-        }).then(function (err){
-
+        }).catch(function (err){
+          console.error(err);
         });
       };
 
-      this.getPriceEstimate = function (accessToken){
+      this.getUberData = function (s_lat, s_long, e_lat, e_long, accessToken){
+
+        return getPriceEstimate(s_lat, s_long, e_lat, e_long, accessToken)
+          .then(function (price){
+            return getTimeEstimate(s_lat, s_long, accessToken)
+              .then(function (time){
+                return {
+                  priceEstimate: price.data,
+                  timeEstimate: time.data
+                };
+              });
+          })
+          .then(function (obj){
+            return obj;
+          });
+      };
+
+      this.requestRide = function (){
+
         $http({
+          method: 'POST',
+          url: UBER_API_RIDE,
+          headers: {
+            'Authorization': 'Bearer ' + accessToken
+          },
+          params: {
+            product_id: 'uberX',
+            start_latitude: null,
+            start_longitude: null,
+            end_latitude: null,
+            end_longitude: null
+          }
+        }).then(function (res){
+          console.log(res);
+        }).catch(function (err){
+          console.error(err);
+        });
+
+      };
+
+      function getPriceEstimate (s_lat, s_long, e_lat, e_long, accessToken){
+        return $http({
           method: 'GET',
           url: UBER_API_EP,
           headers: {
             'Authorization': 'Bearer ' + accessToken
           },
           params: {
-            start_latitude: 21.308507,
-            start_longitude: -157.818326,
-            end_longitude: -157.8088867,
-            end_latitude: 21.307977
+            start_latitude: s_lat,
+            start_longitude: s_long,
+            end_latitude: e_lat,
+            end_longitude: e_long
           }
-        }).then(function (res){
-          console.log(res);
-        }).then(function (err){
+        }).catch(function (err){
           console.error(err);
         });
-      };
+      }
 
-      this.getTimeEstimate = function (accessToken){
-        $http({
+      function getTimeEstimate (s_lat, s_long, accessToken){
+        return $http({
           method: 'GET',
           url: UBER_API_TIME,
           headers: {
             'Authorization': 'Bearer ' + accessToken
           },
           params: {
-            start_latitude: null,
-            start_longitude: null
+            start_latitude: s_lat,
+            start_longitude: s_long
           }
-        }).then(function (res){
-
-        }).then(function (err){
-
+        }).catch(function (err){
+          console.error(err);
         });
-      };
+      }
 
     }]);
 })();

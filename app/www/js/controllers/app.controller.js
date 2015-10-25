@@ -18,25 +18,7 @@
       window.location.href = BASE_URL + '/login';
     };
 
-    //pretend protyping
-    $scope.chosen = false;
-    $scope.chosed = function (){
-      if ($scope.chosen === false){
-        $scope.chosen = true;
-        $scope.name = "Bevy Bar";
-        $scope.price = "$5";
-        $scope.time = "15";
-      }else if ($scope.chosen === true){
-        $scope.chosen = false;
-        $scope.name = "";
-        $scope.price = "";
-        $scope.time = "";
-      }
-    };
-
     $scope.accessToken = localStorage.getItem("auth_token");
-
-    console.log($scope.accessToken);
 
     $rootScope.userLocation
       .then(function(position){
@@ -62,14 +44,24 @@
                 $scope.onClick = function (){
                   selectedMarker = arguments[2];
                   $scope.name = selectedMarker.options.label;
-                  console.log(selectedMarker);
-                };
+                  var e_lat = selectedMarker.latitude;
+                  var e_long = selectedMarker.longitude;
 
-                $scope.onMe = function (accessToken) {
-                  console.log(accessToken);
-                  uberServices
-                    .getMe(accessToken);
+                  $rootScope.userLocation
+                    .then(function(position){
+                      var s_lat = position.coords.latitude;
+                      var s_long = position.coords.longitude;
 
+                      uberServices
+                        .getUberData(s_lat, s_long, e_lat, e_long, $scope.accessToken)
+                          .then(function (uberData){
+                            var priceEstimate = uberData.priceEstimate;
+                            var timeEstimate = uberData.timeEstimate;
+
+                            $scope.price = priceEstimate.prices[0].estimate;
+                            $scope.time = timeEstimate.times[0].estimate;
+                          });
+                    });
                 };
 
                 //when click request ride button, use uberServices.requestUberData(selectedMarker) to with selectedMarker values
