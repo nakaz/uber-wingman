@@ -7,7 +7,8 @@ var uberApiUrl       = 'https://api.uber.com/v1',
     uberServerToken  = process.env.UBER_SERVER_TOKEN,
     bearerToken      = null;
 
-var googleServerToken = process.env.GOOGLE_SERVER_TOKEN;
+var googleApiUrl      = 'https://maps.googleapis.com/maps/api',
+    googleServerToken = process.env.GOOGLE_SERVER_TOKEN;
 
 var uberServerToken = process.env.UBER_SERVER_TOKEN;
 var uberClientID = process.env.UBER_CLIENT_ID;
@@ -120,6 +121,32 @@ router.get('/me', function(req, res){
       picture : picture,
       promo_code : promo_code,
       uuid : uuid
+    }
+  }, function(err, response, body) {
+    if(err) {
+      return res.json(err);
+    }
+    var results = JSON.parse(body);
+    res.json(results);
+  });
+});
+
+router.get('/venues', function(req, res){
+  // var latitude = req.query.latitude;
+  // var longitude = req.query.longitude;
+  var latitude = 21.2969446;
+  var longitude = -157.85642149999998;
+  var location = latitude + ',' + longitude;
+  var radius = 16093.4;
+  var types = "bar";
+
+  request.get({
+    url : googleApiUrl + '/place/nearbysearch/json',
+    qs : {
+      key : googleServerToken,
+      location : location,
+      radius : radius,
+      types : types
     }
   }, function(err, response, body) {
     if(err) {
