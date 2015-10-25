@@ -33,24 +33,26 @@
           });
       };
 
-      this.requestRide = function (){
+      this.requestRide = function (s_lat, s_long, e_lat, e_long, accessToken){
 
         $http({
           method: 'POST',
           url: UBER_API_RIDE,
           headers: {
-            'Authorization': 'Bearer ' + accessToken
+            'Authorization': 'Bearer ' + accessToken,
+            'Access-Control-Allow-Origin': '*'
           },
-          params: {
+          data: {
             product_id: 'uberX',
-            start_latitude: null,
-            start_longitude: null,
-            end_latitude: null,
-            end_longitude: null
+            start_latitude: s_lat,
+            start_longitude: s_long,
+            end_latitude: e_lat,
+            end_longitude: e_long
           }
         }).then(function (res){
           console.log(res);
         }).catch(function (err){
+          console.log('over here herror');
           console.error(err);
         });
 

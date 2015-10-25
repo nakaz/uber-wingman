@@ -20,6 +20,24 @@
 
     $scope.accessToken = localStorage.getItem("auth_token");
 
+    var e_lat;
+    var e_long;
+
+    $scope.requestUber = function (){
+      console.log('halsdfasdjasd');
+      $rootScope.userLocation
+        .then(function (position){
+          var s_lat = position.coords.latitude;
+          var s_long = position.coords.longitude;
+
+          uberServices
+            .requestRide(s_lat, s_long, e_lat, e_long, $scope.accessToken);
+        }).catch(function (err){
+          console.error(err);
+        });
+
+    };
+
     $rootScope.userLocation
       .then(function(position){
         googleServices
@@ -44,8 +62,8 @@
                 $scope.onClick = function (){
                   selectedMarker = arguments[2];
                   $scope.name = selectedMarker.options.label;
-                  var e_lat = selectedMarker.latitude;
-                  var e_long = selectedMarker.longitude;
+                  e_lat = selectedMarker.latitude;
+                  e_long = selectedMarker.longitude;
 
                   $rootScope.userLocation
                     .then(function(position){
@@ -75,4 +93,5 @@
         console.log(error);
       });
     }
+
 })();
