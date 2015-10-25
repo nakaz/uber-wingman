@@ -1,0 +1,35 @@
+<ion-view view-title="Uber Wingman">
+  <ion-content scroll="false">
+    <div class="map-area">
+      <ui-gmap-google-map control="map.control" center="map.center" zoom="map.zoom" options="map.options">
+        <ui-gmap-markers models="barMarkers" coords="'self'" fit="true" icon="'icon'" idKey="'id'" click="onClick">
+        </ui-gmap-markers>
+        <ui-gmap-window>
+      </ui-gmap-google-map>
+    </div>
+    <div class="content-area">
+      <div id="venue">{{name}}</div>
+    </div>
+        <div class="row">
+          <div class="col">
+            <div class="price">
+              {{ price }}
+              <div class="clear"></div>
+              <span class="side-text">estimated cost</span>
+            </div>
+          </div>
+          <div class="col">
+            <div class="pick-me-up">
+              <button class="button button-assertive car-button icon ion-model-s" ng-click="requestUber()"><span class="bottom-text">Pick Me Up!</span></button>
+            </div>
+          </div>
+          <div class="col">
+            <div class="time">
+              {{ time }}
+              <div class="clear"></div>
+              <span class="side-text">seconds</span>
+            </div>
+          </div>
+        </div>
+  </ion-content>
+</ion-view>
