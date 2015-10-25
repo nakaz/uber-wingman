@@ -18,6 +18,10 @@ var mongoose   = require('mongoose'),
 
 var client     = redis.createClient(); // create redis client
 
+var uberServerToken = process.env.UBER_SERVER_TOKEN;
+var uberClientID = process.env.UBER_CLIENT_ID;
+var uberClientSecret = process.env.UBER_CLIENT_SECRET;
+
 app.use(express.static(__dirname + '/../app'));
 app.use(bodyParser.urlencoded({extended: false}));
 
@@ -53,7 +57,7 @@ app.use(function (req, res, next) {
 });
 
 router.get('/login', function(req, res){
-  res.redirect('https://login.uber.com/oauth/v2/authorize?client_id=goMyZL1wCAPz4m_yGGbOV0hoWeGuNI39&response_type=code&scope=request');
+  res.redirect('https://login.uber.com/oauth/v2/authorize?client_id=' + uberClientID + '&response_type=code&scope=request');
 });
 
 router.get('/', function(req, res){
