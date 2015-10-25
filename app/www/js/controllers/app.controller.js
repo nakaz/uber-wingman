@@ -36,8 +36,6 @@
 
     $scope.accessToken = localStorage.getItem("auth_token");
 
-    console.log($scope.accessToken);
-
     $rootScope.userLocation
       .then(function(position){
         googleServices
@@ -62,14 +60,20 @@
                 $scope.onClick = function (){
                   selectedMarker = arguments[2];
                   $scope.name = selectedMarker.options.label;
-                  console.log(selectedMarker);
-                };
+                  var e_lat = selectedMarker.latitude;
+                  var e_long = selectedMarker.longitude;
 
-                $scope.onMe = function (accessToken) {
-                  console.log(accessToken);
-                  uberServices
-                    .getMe(accessToken);
+                  $rootScope.userLocation
+                    .then(function(position){
+                      var s_lat = position.coords.latitude;
+                      var s_long = position.coords.longitude;
 
+                      uberServices
+                        .getUberData(s_lat, s_long, e_lat, e_long, $scope.accessToken)
+                          .then(function (uberData){
+                            console.log(uberData);
+                          });
+                    });
                 };
 
                 //when click request ride button, use uberServices.requestUberData(selectedMarker) to with selectedMarker values
