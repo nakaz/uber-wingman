@@ -4,7 +4,7 @@
   "description": "An app for your Uber wingman!",
   "main": "server/server.js",
   "scripts": {
-    "start": "node server/server.js",
+    "start": "node server/server.js; npm install app/",
     "dev": "source .env; nodemon;",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
