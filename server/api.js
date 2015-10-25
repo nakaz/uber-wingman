@@ -135,13 +135,9 @@ router.get('/me', function(req, res){
 });
 
 router.get('/venues', function(req, res){
-  // var latitude = req.query.latitude;
-  // var longitude = req.query.longitude;
-  var latitude = 21.2969446;
-  var longitude = -157.85642149999998;
-  var location = latitude + ',' + longitude;
-  var radius = 16093.4;
-  var types = "bar";
+  var location = req.query.location;
+  var radius = req.query.radius;
+  var types = req.query.types;
 
   request.get({
     url : googleApiUrl + '/place/nearbysearch/json',
@@ -156,7 +152,7 @@ router.get('/venues', function(req, res){
       return res.json(err);
     }
     var results = JSON.parse(body);
-    res.json(results);
+    res.json(results.results);
   });
 });
 

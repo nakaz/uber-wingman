@@ -6,8 +6,8 @@
         var location = latitude + ',' + longitude;
         var queryOptions = {
           location: location,
-          radius: 16093.4, //equivalent of 10 miles
-          types: ['bar', 'night_club']
+          radius: 3218.69, //equivalent of 2 miles
+          types: 'bar'
         };
 
         var Venues = $resource(BASE_URL + '/api/venues', queryOptions);
