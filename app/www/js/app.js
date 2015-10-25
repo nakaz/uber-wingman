@@ -2,7 +2,9 @@
 
   var app = angular.module(
     'wingman',
-    ['ionic'
+    ['ionic',
+    'ngResource',
+    'uiGmapgoogle-maps'
     ]);
 
 
@@ -26,7 +28,7 @@
         url: '/app',
         abstract: true,
         templateUrl: 'templates/menu.html',
-        controller: 'mainController'
+        controller:'mainController'
       })
       .state('app.main', {
         url: '/main',
@@ -48,5 +50,9 @@
     $urlRouterProvider.otherwise('/app/main');
 
   }]);
+
+  app.run(function ($rootScope, geolocation){
+    $rootScope.userLocation = geolocation();
+  });
 
 })();
