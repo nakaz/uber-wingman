@@ -1,5 +1,4 @@
 node_modules
-app/www/lib/
 app/plugins/
 app/www/css/ionic.app.css
 .tmp
