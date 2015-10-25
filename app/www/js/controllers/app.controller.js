@@ -35,7 +35,6 @@
                 };
               });
             for (var i = 0; i < venues.length; i++){
-              console.log(venues);
               MarkerService.createMarkers(venues[i].geometry.location.lat, venues[i].geometry.location.lng, i+1);
             }
             $scope.barMarkers = MarkerService.markers;
