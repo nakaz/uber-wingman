@@ -4,12 +4,16 @@
     .factory('MarkerService', function(){
       return {
         markers: [],
-        createMarkers: function(x, y, id){
+        createMarkers: function(x, y, id, label){
           var marker = {
             latitude: x,
             longitude: y,
             id: id,
             title: "m" + id,
+            options: {
+              clickable: true,
+              label: label
+            }
           };
           this.markers.push(marker);
         },

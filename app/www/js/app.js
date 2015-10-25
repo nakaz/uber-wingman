@@ -28,7 +28,7 @@
         url: '/app',
         abstract: true,
         templateUrl: 'templates/menu.html',
-        controller:'mainController'
+        controller:'mainController as mainController'
       })
       .state('app.main', {
         url: '/main',

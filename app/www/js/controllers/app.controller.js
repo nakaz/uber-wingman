@@ -33,11 +33,18 @@
                   options: {disableDefaultUI: true},
                   control: {},
                 };
+                for (var i = 0; i < venues.length; i++){
+                  MarkerService.createMarkers(venues[i].geometry.location.lat, venues[i].geometry.location.lng, i+1, venues[i].name);
+                }
+                var markersArr = MarkerService.markers;
+
+                $scope.onClick = function (){
+                  console.log('working');
+                };
+
+                $scope.barMarkers = markersArr;
               });
-            for (var i = 0; i < venues.length; i++){
-              MarkerService.createMarkers(venues[i].geometry.location.lat, venues[i].geometry.location.lng, i+1);
-            }
-            $scope.barMarkers = MarkerService.markers;
+
           });
       })
       .catch(function(error){

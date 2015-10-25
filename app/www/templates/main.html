@@ -2,8 +2,9 @@
   <ion-content>
     <div class="map-area">
       <ui-gmap-google-map control="map.control" center="map.center" zoom="map.zoom" options="map.options">
-        <ui-gmap-markers models="barMarkers" coords="'self'" fit="true" icon="'icon'" idKey="'id'">
+        <ui-gmap-markers models="barMarkers" coords="'self'" fit="true" icon="'icon'" idKey="'id'" click="onClick()">
         </ui-gmap-markers>
+        <ui-gmap-window>
       </ui-gmap-google-map>
     </div>
     <div class="content-area">
