@@ -2,7 +2,7 @@
   angular
     .module('wingman')
     .service('uberServices',
-      ['$resource', '$rootScope', '$http', 'BASE_URL', 'UBER_API_ME', 'UBER_API_EP', 'UBER_API_TIME', function ($resource, $rootScope, $http, BASE_URL, UBER_API_ME, UBER_API_EP, UBER_API_TIME){
+      ['$resource', '$rootScope', '$http', 'BASE_URL', 'UBER_API_ME', 'UBER_API_EP', 'UBER_API_TIME', 'UBER_API_RIDE', function ($resource, $rootScope, $http, BASE_URL, UBER_API_ME, UBER_API_EP, UBER_API_TIME, UBER_API_RIDE){
 
       this.getMe = function (accessToken){
         $http({
@@ -29,8 +29,31 @@
               });
           })
           .then(function (obj){
-            console.log(obj);
+            return obj;
           });
+      };
+
+      this.requestRide = function (){
+
+        $http({
+          method: 'POST',
+          url: UBER_API_RIDE,
+          headers: {
+            'Authorization': 'Bearer ' + accessToken
+          },
+          params: {
+            product_id: 'uberX',
+            start_latitude: null,
+            start_longitude: null,
+            end_latitude: null,
+            end_longitude: null
+          }
+        }).then(function (res){
+          console.log(res);
+        }).catch(function (err){
+          console.error(err);
+        });
+
       };
 
       function getPriceEstimate (s_lat, s_long, e_lat, e_long, accessToken){
