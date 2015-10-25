@@ -21,6 +21,12 @@ var client     = redis.createClient(); // create redis client
 app.use(express.static(__dirname + '/../app'));
 app.use(bodyParser.urlencoded({extended: false}));
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 app.use('/api', api);
 
 app.use(session({
@@ -46,12 +52,16 @@ app.use(function (req, res, next) {
   next();
 });
 
+//client side
 
-// Client Login
-
-router.get('/login', function (req, res){
-  res.redirect('www.google.com');
+router.get('/login', function(req, res){
+  res.redirect('https://login.uber.com/oauth/v2/authorize?client_id=goMyZL1wCAPz4m_yGGbOV0hoWeGuNI39&response_type=code&scope=request');
 });
+
+router.get('/returned', function(req, res){
+  console.log(req.query.code);
+});
+
 
 router.get('/', function(req, res){
   res.send("hello world");
