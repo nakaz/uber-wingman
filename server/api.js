@@ -149,6 +149,7 @@ router.get('/venues', function(req, res){
       return res.json(err);
     }
     var results = JSON.parse(body);
+    console.log(results);
     res.json(results.results);
   });
 });
