@@ -2,7 +2,7 @@
   angular
     .module('wingman')
     .service('uberServices',
-      ['$resource', '$rootScope', '$http', 'BASE_URL', 'UBER_API_ME', 'UBER_API_EP', function ($resource, $rootScope, $http, BASE_URL, UBER_API_ME, UBER_API_EP){
+      ['$resource', '$rootScope', '$http', 'BASE_URL', 'UBER_API_ME', 'UBER_API_EP', 'UBER_API_TIME', function ($resource, $rootScope, $http, BASE_URL, UBER_API_ME, UBER_API_EP, UBER_API_TIME){
       this.requestUberData = function (latitude, longitude, radius){
         var location = latitude + ',' + longitude;
         var queryOptions = {
@@ -15,7 +15,20 @@
       };
 
       this.getMe = function (accessToken){
+        $http({
+          method: 'GET',
+          url: UBER_API_ME,
+          headers: {
+            'Authorization': 'Bearer ' + accessToken
+          }
+        }).then(function (res){
 
+        }).then(function (err){
+
+        });
+      };
+
+      this.getPriceEstimate = function (accessToken){
         $http({
           method: 'GET',
           url: UBER_API_EP,
@@ -33,23 +46,25 @@
         }).then(function (err){
           console.error(err);
         });
+      };
 
+      this.getTimeEstimate = function (accessToken){
+        $http({
+          method: 'GET',
+          url: UBER_API_TIME,
+          headers: {
+            'Authorization': 'Bearer ' + accessToken
+          },
+          params: {
+            start_latitude: null,
+            start_longitude: null
+          }
+        }).then(function (res){
 
-        // var Me = $resource(UBER_API_ME, queryOptions, actions);
-        // return Me.query().$promise;
+        }).then(function (err){
 
+        });
       };
 
     }]);
 })();
-
-// $http({
-//   method: 'GET',
-//   url: '/someUrl'
-// }).then(function successCallback(response) {
-//     // this callback will be called asynchronously
-//     // when the response is available
-//   }, function errorCallback(response) {
-//     // called asynchronously if an error occurs
-//     // or server returns response with an error status.
-//   });
