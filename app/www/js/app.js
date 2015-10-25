@@ -45,6 +45,13 @@
             templateUrl: 'templates/login.html'
           }
         }
+      })
+      .state('auth', {
+        url:'/store-auth-token/:accessToken',
+        controller: function ($stateParams, $state){
+          localStorage.auth_token = $stateParams.accessToken;
+          $state.go('app.main');
+        }
       });
 
     $urlRouterProvider.otherwise('/app/main');
@@ -56,3 +63,5 @@
   });
 
 })();
+
+
