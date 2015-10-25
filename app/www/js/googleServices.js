@@ -10,7 +10,7 @@
           types: ['bar', 'night_club']
         };
 
-        var Venues = $resource(BASE_URL + '/api/venues', queryOptions);
+        var Venues = $resource(BASE_URL + '/api/venues', queryOptions, {isArray: false});
         return Venues.query().$promise;
       };
 
