@@ -7,12 +7,13 @@
         'BASE_URL',
         'geolocation',
         'MarkerService',
+        'uberServices',
         'googleServices',
         'uiGmapGoogleMapApi',
          mainController
       ]);
 
-  function mainController ($rootScope, $scope, BASE_URL, geolocation, MarkerService, googleServices, googleMaps) {
+  function mainController ($rootScope, $scope, BASE_URL, geolocation, MarkerService, uberServices, googleServices, googleMaps) {
     $scope.uberLogin = function (){
       window.location.href = BASE_URL + '/login';
     };
@@ -61,6 +62,9 @@
                   $scope.name = selectedMarker.options.label;
                   console.log(selectedMarker);
                 };
+
+                //when click request ride button, use uberServices.requestUberData(selectedMarker) to with selectedMarker values
+
                 $scope.barMarkers = markersArr;
               });
 
