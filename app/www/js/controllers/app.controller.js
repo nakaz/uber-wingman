@@ -1,11 +1,11 @@
 (function (){
   angular
     .module('wingman')
-    .controller('mainController', ['$scope', mainController]);
+    .controller('mainController', ['$scope', '$http', 'BASE_URL', mainController]);
 
-  function mainController ($scope){
-    $scope.login = function (){
-      window.location.href = '/login';
+  function mainController ($scope, $http, BASE_URL){
+    $scope.uberLogin = function (){
+      window.location.href = BASE_URL + '/login';
     };
   }
 })();

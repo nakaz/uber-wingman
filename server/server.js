@@ -52,16 +52,9 @@ app.use(function (req, res, next) {
   next();
 });
 
-//client side
-
 router.get('/login', function(req, res){
   res.redirect('https://login.uber.com/oauth/v2/authorize?client_id=goMyZL1wCAPz4m_yGGbOV0hoWeGuNI39&response_type=code&scope=request');
 });
-
-router.get('/returned', function(req, res){
-  console.log(req.query.code);
-});
-
 
 router.get('/', function(req, res){
   res.send("hello world");
