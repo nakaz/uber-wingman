@@ -55,11 +55,12 @@
                   MarkerService.createMarkers(venues[i].geometry.location.lat, venues[i].geometry.location.lng, i+1, venues[i].name);
                 }
                 var markersArr = MarkerService.markers;
-
+                var selectedMarker = null;
                 $scope.onClick = function (){
-                  console.log('working');
+                  selectedMarker = arguments[2];
+                  $scope.name = selectedMarker.options.label;
+                  console.log(selectedMarker);
                 };
-
                 $scope.barMarkers = markersArr;
               });
 
