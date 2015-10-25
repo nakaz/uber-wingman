@@ -43,25 +43,10 @@ app.use(session({
   }
 }));
 
-app.use(function (req, res, next) {
-  var session = req.session;
-
-  if (session.views) {
-    session.views++;
-  } else {
-    session.views = 1;
-  }
-
-  console.log('viewed ', session.views, ' times!');
-  next();
-});
+//Login GET Request
 
 router.get('/login', function(req, res){
   res.redirect('https://login.uber.com/oauth/v2/authorize?client_id=' + uberClientID + '&response_type=code&scope=request');
-});
-
-router.get('/', function(req, res){
-  res.send("hello world");
 });
 
 // Get all cars
