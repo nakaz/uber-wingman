@@ -35,9 +35,15 @@
                 };
               });
             for (var i = 0; i < venues.length; i++){
-              MarkerService.createMarkers(venues[i].geometry.location.lat, venues[i].geometry.location.lng, i+1);
+              MarkerService.createMarkers(venues[i].geometry.location.lat, venues[i].geometry.location.lng, i+1, venues[i].name);
             }
-            $scope.barMarkers = MarkerService.markers;
+            var markersArr = MarkerService.markers;
+
+            $scope.onClick = function (){
+              console.log('working');
+            };
+
+            $scope.barMarkers = markersArr;
           });
       })
       .catch(function(error){
