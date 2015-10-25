@@ -18,22 +18,6 @@
       window.location.href = BASE_URL + '/login';
     };
 
-    //pretend protyping
-    $scope.chosen = false;
-    $scope.chosed = function (){
-      if ($scope.chosen === false){
-        $scope.chosen = true;
-        $scope.name = "Bevy Bar";
-        $scope.price = "$5";
-        $scope.time = "15";
-      }else if ($scope.chosen === true){
-        $scope.chosen = false;
-        $scope.name = "";
-        $scope.price = "";
-        $scope.time = "";
-      }
-    };
-
     $scope.accessToken = localStorage.getItem("auth_token");
 
     $rootScope.userLocation
@@ -71,7 +55,11 @@
                       uberServices
                         .getUberData(s_lat, s_long, e_lat, e_long, $scope.accessToken)
                           .then(function (uberData){
-                            console.log(uberData);
+                            var priceEstimate = uberData.priceEstimate;
+                            var timeEstimate = uberData.timeEstimate;
+
+                            $scope.price = priceEstimate.prices[0].estimate;
+                            $scope.time = timeEstimate.times[0].estimate;
                           });
                     });
                 };
